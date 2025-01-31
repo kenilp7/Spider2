@@ -10,7 +10,7 @@ from io import BytesIO
 from openai import AzureOpenAI
 from typing import Dict, List, Optional, Tuple, Any, TypedDict
 import dashscope
-from groq import Groq
+
 import google.generativeai as genai
 import openai
 import requests
@@ -106,8 +106,9 @@ def call_llm(payload):
     elif model.startswith("azure"):
         client = AzureOpenAI(
             api_key = os.environ['AZURE_API_KEY'],  
-            api_version = "2024-02-15-preview",
-            azure_endpoint = os.environ['AZURE_ENDPOINT']
+            api_version = os.environ['API_VERSION'],
+            azure_endpoint = os.environ['AZURE_ENDPOINT'],
+            azure_deployment = os.environ['AZURE_DEPLOYMENT']
             )
         model_name = model.split("/")[-1]
         for i in range(3):
